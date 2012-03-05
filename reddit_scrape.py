@@ -1,5 +1,6 @@
 """
 Notes:
+***UNSOLVED PROBLEM*** comments longer than 77 chars get cut with a "..." 
 -Orders submissions by most upvotes NOT chronological
 -Comments include "[deleted]" for deleted comments
 -Subreddit input isn't case sensitive
