@@ -1,5 +1,6 @@
 #Usage: python wikixml2txt.py [wiki.xml]
 #NOTE: place this script in dir you want to contain all articles. xml can be elsewhere
+#Download Wikpedia articles from en.wikipedia.org/wiki/Wikipedia:Database_download, unpack the xml
 
 #TODO:
 
