@@ -1,5 +1,6 @@
 #Usage: python wikixml2txt.py [wiki.xml]
 #NOTE: place this script in dir you want to contain all articles. xml can be elsewhere
+#Download Wikpedia articles from en.wikipedia.org/wiki/Wikipedia:Database_download, unpack the xml
 
 #TODO:
 
@@ -22,23 +23,37 @@ def writeArticle(title, article):
     output = open(filename, "w")
     for line in article:
         print >>output, line
+        #exit(0) #write one article and QUIT TESTING ONLY
     noRedirCount += 1
-    #exit(0) #write one article and QUIT TESTING ONLY
 
 #might be issues if tables use these objects eg { table stuff, {{object}} \n ...
 #returns text without one line wiki encoded objects: {{object}}    
 def parseJunk(line):
     global redirect
     
+    #catch redirects
     if string.find(line, "#REDIRECT") is not -1:
         redirect = True
         return line
     
+    #is the whole line an internal page link?
     if line[:2] == "[[" and line[-2:] == "]]":
         return None
+    #Does the line even contain object braces?
     if string.find(line, "{{") is -1:
         return line
     
+    #Is the object COMPLETED in this line? (if not leave it there eg. tables)
+    braceCount = 0
+    for char in line:
+        if char is '{':
+            braceCount += 1
+        if char is '}':
+            braceCount -= 1
+    if braceCount is not 0:
+        return line
+    
+    #the object is completed in one line, remove it
     text = ""
     braceCount = 0
     flag = True
@@ -128,4 +143,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
