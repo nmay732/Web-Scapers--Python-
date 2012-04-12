@@ -18,6 +18,11 @@ noRedirCount = 0
 #takes in a string title and array of article text. Writes lines of array to file "title.txt" in working dir
 def writeArticle(title, article):
     global noRedirCount
+    
+    #if title is >255 bytes cut the last char off till it's small enough to fit in ext3 fileSystem
+    while sys.getsizeof(str(title + ".txt")) > 255:
+        title = title[:-1]
+    
     filename = title + ".txt"
     filename = filename.replace("/","\\") #titles with "/" don't export as files well. replace with "\"
     output = open(filename, "w")
