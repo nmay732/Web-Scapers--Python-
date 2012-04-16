@@ -25,10 +25,13 @@ def writeArticle(title, article):
     
     filename = title + ".txt"
     filename = filename.replace("/","\\") #titles with "/" don't export as files well. replace with "\"
-    output = open(filename, "w")
-    for line in article:
-        print >>output, line
-        #exit(0) #write one article and QUIT TESTING ONLY
+    try:
+        output = open(filename, "w")
+        for line in article:
+            print >>output, line
+            #exit(0) #write one article and QUIT TESTING ONLY
+    except:
+        print "Unexpected error: ", sys.exc_info()[0]
     noRedirCount += 1
 
 #might be issues if tables use these objects eg { table stuff, {{object}} \n ...
